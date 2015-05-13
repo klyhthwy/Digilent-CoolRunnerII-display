@@ -1,0 +1,40 @@
+#NET "en"        LOC = "P124";   // SW1
+#NET "data"      LOC = "P39";    // SW0
+#NET "clk"       LOC = "P94";    // BTN1
+#NET "rst_l"     LOC = "P143";   // BTN0 (GSR)
+#NET "led[3]"    LOC = "P64";    // LED3
+NET "led[2]"    LOC = "P66";    // LED2
+NET "led[1]"    LOC = "P68";    // LED1
+NET "led[0]"    LOC = "P69";    // LED0
+
+NET "C"         LOC = "P10";    // J1-IO1
+NET "B"         LOC = "P7";     // J1-IO2
+NET "A"         LOC = "P5";     // J1-IO3
+NET "P"         LOC = "P3";     // J1-IO4
+NET "hsa"       LOC = "P9";     // J1-IO7
+NET "hsb"       LOC = "P6";     // J1-IO8
+NET "hsc"       LOC = "P4";     // J1-IO9
+
+NET "Ca2"       LOC = "P142";   // J2-IO1
+NET "Cb2"       LOC = "P139";   // J2-IO2
+NET "Cc2"       LOC = "P136";   // J2-IO3
+#NET ""         LOC = "P134";   // J2-IO4
+NET "Ca1"       LOC = "P140";   // J2-IO7
+NET "Cb1"       LOC = "P138";   // J2-IO8
+NET "Cc1"       LOC = "P135";   // J2-IO9
+
+#NET "Ca2"       LOC = "P119";   // J3-IO1
+#NET "Cb2"       LOC = "P117";   // J3-IO2
+#NET "Cc2"       LOC = "P115";   // J3-IO3
+##NET ""         LOC = "P113";    // J3-IO4
+#NET "Ca1"       LOC = "P118";   // J3-IO7
+#NET "Cb1"       LOC = "P116";   // J3-IO8
+#NET "Cc1"       LOC = "P114";   // J3-IO9
+#
+#NET "C"         LOC = "P104";   // J4-IO1
+#NET "B"         LOC = "P102";   // J4-IO2
+#NET "A"         LOC = "P100";   // J4-IO3
+#NET "P"         LOC = "P97";    // J4-IO4
+#NET "hsa"       LOC = "P103";   // J4-IO7
+#NET "hsb"       LOC = "P101";   // J4-IO8
+#NET "hsc"       LOC = "P98";    // J4-IO9

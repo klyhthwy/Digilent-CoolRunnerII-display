@@ -1,0 +1,29 @@
+
+module bcd4digit( A, B, C, D, clk, rst, value );
+
+    output  reg [3:0]A;
+    output  reg [3:0]B;
+    output  reg [3:0]C;
+    output  reg [3:0]D;
+    
+    input   clk;
+    input   rst;
+    
+    input   [13:0]value;
+    
+    always @( rst ) begin
+        
+        A = 4'b0;
+        B = 4'b0;
+        C = 4'b0;
+        D = 4'b0;
+        
+    end
+    
+    always @( posedge clk ) begin
+        
+        
+        
+    end
+
+endmodule
