@@ -3,13 +3,13 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date:    12:37:19 05/08/2015 
+// Create Date:     12:37:19 05/08/2015 
 // Design Name: 
-// Module Name:    timer 
+// Module Name:     timer 
 // Project Name: 
 // Target Devices: 
 // Tool versions: 
-// Description: 
+// Description:     Default 24-bit timer
 //
 // Dependencies: 
 //
@@ -18,15 +18,17 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module timer( flag, clk, rst, tmr_period );
+module timer #(parameter size = 24)( tmr_count, flag, clk, rst, tmr_period, tmr_compare );
 
-    output  reg flag;
+    output  reg [size-1:0]tmr_count;
+    output  flag;
     
     input   clk, rst;
-    input   [23:0]tmr_period;
+    input   [size-1:0]tmr_period;
+    input   [size-1:0]tmr_compare;
     
-    reg     [23:0]tmr_count;
-    reg     [23:0]tmr_load;
+    reg     [size-1:0]tmr_load;
+    reg     [size-1:0]tmr_cmp;
 
     always@( posedge clk, negedge rst )
     begin
@@ -34,22 +36,23 @@ module timer( flag, clk, rst, tmr_period );
         begin
             tmr_count <= 0;
             tmr_load  <= 0;
-            flag = 0;
+            tmr_cmp   <= 0;
         end
         else
         begin
-            if( tmr_count == 0 )
+            if( tmr_count == tmr_load )
             begin
-                tmr_count <= tmr_load;
+                tmr_count <= 0;
                 tmr_load  <= tmr_period;
-                flag = 1;
+                tmr_cmp   <= tmr_compare;
             end
             else
             begin
-                tmr_count <= tmr_count - 1;
-                flag = 0;
+                tmr_count <= tmr_count + 1;
             end
         end
     end
+    
+    assign flag = tmr_cmp > tmr_count;
 
 endmodule

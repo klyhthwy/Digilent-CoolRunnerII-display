@@ -22,78 +22,45 @@
 ////////////////////////////////////////////////////////////////////////////////
 module timer_t;
 
-    reg flg;
-
-	// Inputs
+    // Inputs
 	reg clk;
 	reg rst;
 	reg [23:0] tmr_period;
+    reg [23:0] tmr_compare;
 
 	// Outputs
+    wire [23:0] tmr_count;
 	wire flag;
 
 	// Instantiate the Unit Under Test (UUT)
 	timer uut (
+        .tmr_count(tmr_count),
 		.flag(flag), 
 		.clk(clk), 
 		.rst(rst), 
-		.tmr_period(tmr_period)
+		.tmr_period(tmr_period),
+        .tmr_compare(tmr_compare)
 	);
+    
+    always #50 clk = ~clk;
 
 	initial begin
 		// Initialize Inputs
-        flg = 0;
 		clk = 0;
 		rst = 0;
-		tmr_period = 24'h2;
+		tmr_period = 24'h7;
+        tmr_compare = 24'h4;
 
 		// Wait 100 ns for global reset to finish
 		#100;
         
 		// Add stimulus here
-        rst = 1; #100;
+        rst = 1; #1000;
+        tmr_compare = 24'h1; #1000;
+        tmr_compare = 24'h0; #1000;
+        tmr_compare = 24'h8; #1000;
+        tmr_compare = 24'h7; #1000;
         
-        clk = 1; flg = 1; #50;
-        clk = 0; flg = 0; #50;
-        clk = 1; #50;
-        clk = 0; #50;
-        clk = 1; #50;
-        clk = 0; #50;
-        
-        clk = 1; flg = 1; #50;
-        clk = 0; flg = 0; #50;
-        clk = 1; #50;
-        clk = 0; #50;
-        clk = 1; #50;
-        clk = 0; #50;
-        
-        clk = 1; flg = 1; #50;
-        clk = 0; flg = 0; #50;
-        clk = 1; #50;
-        clk = 0; tmr_period = 24'h3; #50;
-        clk = 1; #50;
-        clk = 0; #50;
-        
-        clk = 1; flg = 1; #50;
-        clk = 0; flg = 0; #50;
-        clk = 1; #50;
-        clk = 0; #50;
-        clk = 1; #50;
-        clk = 0; #50;
-        
-        clk = 1; flg = 1; #50;
-        clk = 0; flg = 0; #50;
-        clk = 1; #50;
-        clk = 0; #50;
-        clk = 1; #50;
-        clk = 0; #50;
-        
-        clk = 1; flg = 1; #50;
-        clk = 0; flg = 0; #50;
-        clk = 1; #50;
-        clk = 0; #50;
-        clk = 1; #50;
-        clk = 0; #50;
 	end
       
 endmodule

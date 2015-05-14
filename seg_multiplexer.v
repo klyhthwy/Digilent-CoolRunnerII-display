@@ -20,15 +20,15 @@
 //////////////////////////////////////////////////////////////////////////////////
 module seg_multiplexer( digit, clk, enable, A, B, C, D, select );
     
-    output  reg [7:0]digit;
+    output  reg [3:0]digit;
     
     input   clk;
     input   enable;
     
-    input   [7:0]A;
-    input   [7:0]B;
-    input   [7:0]C;
-    input   [7:0]D;
+    input   [3:0]A;
+    input   [3:0]B;
+    input   [3:0]C;
+    input   [3:0]D;
     
     input   [3:0]select;
     
@@ -47,7 +47,7 @@ module seg_multiplexer( digit, clk, enable, A, B, C, D, select );
     else
     begin
 
-        digit <= 8'h00;
+        digit <= 4'hF;
 
     end
 
