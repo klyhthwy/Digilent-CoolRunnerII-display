@@ -11,6 +11,8 @@ module bcd4digit( A, B, C, D, clk, rst, value );
     
     input   [13:0]value;
     
+    reg [9:0]quotient
+    
     always @( rst ) begin
         
         A = 4'b0;
