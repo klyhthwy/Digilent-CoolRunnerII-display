@@ -11,7 +11,8 @@ module bcd4digit( A, B, C, D, clk, rst, value );
     
     input   [13:0]value;
     
-    reg [9:0]quotient
+    reg [13:0]dividend;
+    reg [9:0]quotient;
     
     always @( rst ) begin
         
@@ -24,7 +25,12 @@ module bcd4digit( A, B, C, D, clk, rst, value );
     
     always @( posedge clk ) begin
         
+        while( dividend > 10 ) begin
         
+            dividend <= dividend - 10;
+            quotient <= quotient + 1;
+        
+        end
         
     end
 
