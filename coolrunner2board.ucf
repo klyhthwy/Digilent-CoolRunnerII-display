@@ -3,10 +3,10 @@ NET "en"        LOC = "P124";   // SW1
 #NET "data"      LOC = "P39";    // SW0
 #NET "clk"       LOC = "P94";    // BTN1
 NET "rst"       LOC = "P143";   // BTN0 (GSR)
-#NET "led[3]"    LOC = "P64";    // LED3
-#NET "led[2]"    LOC = "P66";    // LED2
-#NET "led[1]"    LOC = "P68";    // LED1
-#NET "led[0]"    LOC = "P69";    // LED0
+NET "led[3]"    LOC = "P64";    // LED3
+NET "led[2]"    LOC = "P66";    // LED2
+NET "led[1]"    LOC = "P68";    // LED1
+NET "led[0]"    LOC = "P69";    // LED0
 
 NET "a_l"       LOC = "P56";    // Seven Seg A
 NET "b_l"       LOC = "P53";    // Seven Seg B

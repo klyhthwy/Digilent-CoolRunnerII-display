@@ -1,0 +1,32 @@
+
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date:    21:37:13 05/13/2015 
+// Design Name: 
+// Module Name:    verilog project command file 
+// Project Name: 
+// Target Devices: 
+// Tool versions: 
+// Description:    Used with iverilog on my MacBook Pro.
+//
+// Dependencies: 
+//
+// Revision: 
+// Revision 0.01 - File Created
+// Additional Comments: 
+//
+//////////////////////////////////////////////////////////////////////////////////
+
+bcd4digit.v
+display_driver.v
+display_driver_t.v
+rotate.v
+#rotate_t.v
+seg_multiplexer.v
+#seg_multiplexer_t.v
+seven_seg.v
+#seven_seg_t.v
+timer.v
+#timer_t.v

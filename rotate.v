@@ -9,7 +9,7 @@
 // Project Name: 
 // Target Devices: 
 // Tool versions: 
-// Description:    size bit rotate (circular shift)
+// Description:    size-bit rotate (circular shift)
 //
 // Dependencies: 
 //
