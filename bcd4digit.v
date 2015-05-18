@@ -22,50 +22,40 @@
 
 module bcd4digit( A, B, C, D, clk, rst, value );
 
-    output  reg[3:0] A;
-    output  reg[3:0] B;
-    output  reg[3:0] C;
-    output  reg[3:0] D;
+    output  reg [3:0] A;
+    output  reg [3:0] B;
+    output  reg [3:0] C;
+    output  reg [3:0] D;
     
     input   clk;
     input   rst;
+    input   [13:0] value;
     
-    input   [13:0]  value;
-    
-    reg         run_, done;
+    reg         done;
+    reg         start_divide;
     reg [3:0]   digits [0:3];
     reg [2:0]   digit_count;
     reg [13:0]  dividend;
-    reg [9:0]   quotient;
     
-    wire    dividend_less_than10, quotient_less_than10;
-    assign  dividend_less_than10 = (dividend < 14'hA ) ? 1:0;
-    assign  quotient_less_than10 = (quotient < 10'hA ) ? 1:0;
+    wire    [9:0]   quotient;
+    wire    [13:0]  remainder;
+    wire    divide_done;
     
-    wire stop;
-    and(stop, dividend_less_than10, quotient_less_than10);
+    divide10 M1(quotient, remainder, divide_done, clk, start_divide, dividend);
     
-    wire run, stop_l;
-    not(stop_l, digit_count[2]);
-    and(run, run_, stop_l);
-    
-    always @( negedge rst ) begin
+    always @( posedge clk or negedge rst ) begin
         
-        A <= 4'hF;
-        B <= 4'hF;
-        C <= 4'hF;
-        D <= 4'hF;
+        if( ~rst ) begin
+            A <= 4'hF;
+            B <= 4'hF;
+            C <= 4'hF;
+            D <= 4'hF;
+        end
+        else begin
         
-        digits[0] <= 4'hF;
-        digits[1] <= 4'hF;
-        digits[2] <= 4'hF;
-        digits[3] <= 4'hF;
         
-        run_ <= 1;
-        digit_count <= 0;
-        dividend <= value;
-        quotient <= 0;
-        done <= 0;
+        
+        end
         
     end
     
@@ -76,38 +66,9 @@ module bcd4digit( A, B, C, D, clk, rst, value );
         digits[2] <= 4'hF;
         digits[3] <= 4'hF;
     
-        run_ <= 1;
         digit_count <= 0;
-        dividend <= value;
-        quotient <= 0;
         done <= 0;
     
-    end
-    
-    always @( posedge clk ) begin
-        if( run ) begin
-            
-            if( !stop ) begin
-                dividend <= dividend - 14'd10;
-                quotient <= quotient + 1;
-            end
-            else begin
-                digits[digit_count] <= dividend;
-                done <= 1;
-            end
-    
-        end
-        else
-            done <= 1;
-    end
-    
-    always @( posedge dividend_less_than10 ) begin
-
-        digits[digit_count] <= dividend;
-        dividend <= quotient;
-        quotient <= 0;
-        digit_count <= digit_count + 1;
-        
     end
     
     always @( posedge done ) begin
