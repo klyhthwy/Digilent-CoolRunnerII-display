@@ -44,21 +44,27 @@ module divide10_t;
 		.dividend(dividend)
 	);
     
-    always #50 clk = ~clk;
+    always #50 begin
+        clk = ~clk;
+        $display("quotient : %d", quotient);
+        $display("remainder: %d", remainder);
+        $display("done     : %d", done);
+    end
 
 	initial begin
 		// Initialize Inputs
 		clk = 1;
 		start = 0;
-		dividend = 6;
+		dividend = 34;
 
 		// Wait 100 ns for global reset to finish
 		#100;
         
 		// Add stimulus here
-        start = 1;
+        start = 1; #1000;
+        $finish;
 
 	end
-      
+
 endmodule
 

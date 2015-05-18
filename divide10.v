@@ -28,26 +28,37 @@ module divide10( quotient, remainder, done, clk, start, dividend );
     input   start;
     input   [13:0]dividend;
     
+    reg     run;
+    
     wire    dividend_less_than10;
     assign  dividend_less_than10 = (remainder < 14'hA ) ? 1:0;
     
     
-    always @( posedge clk or posedge start ) begin
-    
-        if( !done ) begin
-            
-            remainder <= dividend - 14'd10;
-            quotient <= quotient + 1;
-            
-        end
-        else begin
-
-            quotient <= 0;
-            done <= 0;
-            
-        end
+    always @( posedge start ) begin
+        
+        quotient <= 0;
+        remainder <= dividend;
+        run <= 1;
+        
     end
     
-    always @( posedge dividend_less_than10  ) done <= 1;
+    
+    always @( posedge clk ) begin
+        
+        if( run ) begin
+            
+            quotient <= quotient + 1;
+            remainder <= remainder - 14'd10;
+            
+        end
+        
+    end
+    
+    always @( posedge dividend_less_than10  ) begin
+        
+        done <= 1;
+        run <= 0;
+        
+    end
 
 endmodule
