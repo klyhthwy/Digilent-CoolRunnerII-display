@@ -52,14 +52,13 @@ module bcd4digit_t;
 		// Initialize Inputs
 		clk = 1;
 		rst = 0;
-		value = 351;
+		value = 6031;
 
 		// Wait 100 ns for global reset to finish
 		#100;
         
 		// Add stimulus here
-        rst = 1; #4000;
-        value = 10230;
+        rst = 1;
 
 	end
       

@@ -50,7 +50,7 @@ module divide10_t;
 		// Initialize Inputs
 		clk = 1;
 		start = 0;
-		dividend = 351;
+		dividend = 6;
 
 		// Wait 100 ns for global reset to finish
 		#100;
