@@ -34,7 +34,6 @@ module divide10( quotient, remainder, done, clk, start, dividend );
     always @( posedge start ) begin
 
         quotient <= 0;
-        remainder <= dividend;
         done <= 0;
     
     end
@@ -43,7 +42,7 @@ module divide10( quotient, remainder, done, clk, start, dividend );
     
         if( !done ) begin
             
-            remainder <= remainder - 14'd10;
+            remainder <= dividend - 14'd10;
             quotient <= quotient + 1;
             
         end    
