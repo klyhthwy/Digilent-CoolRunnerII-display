@@ -31,21 +31,21 @@ module divide10( quotient, remainder, done, clk, start, dividend );
     wire    dividend_less_than10;
     assign  dividend_less_than10 = (remainder < 14'hA ) ? 1:0;
     
-    always @( posedge start ) begin
-
-        quotient <= 0;
-        done <= 0;
     
-    end
-    
-    always @( posedge clk ) begin
+    always @( posedge clk or posedge start ) begin
     
         if( !done ) begin
             
             remainder <= dividend - 14'd10;
             quotient <= quotient + 1;
             
-        end    
+        end
+        else begin
+
+            quotient <= 0;
+            done <= 0;
+            
+        end
     end
     
     always @( posedge dividend_less_than10  ) done <= 1;

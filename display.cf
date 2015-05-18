@@ -20,8 +20,11 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 bcd4digit.v
+#bcd4digit_t.v
 display_driver.v
 display_driver_t.v
+divide10.v
+#divide10_t.v
 rotate.v
 #rotate_t.v
 seg_multiplexer.v
