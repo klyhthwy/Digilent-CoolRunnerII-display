@@ -18,47 +18,58 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module divide10( quotient, remainder, done, clk, start, dividend );
+
+module divide10( quotient, remainder, done, carry, 
+                 clk, rst, load_quotient, load_value, value );
 
     output  reg [9:0]   quotient;
-    output  reg [13:0]  remainder;
-    output  reg         done;
+    output      [13:0]  remainder;
+    output              done;
+    output              carry;
     
-    input   clk;
-    input   start;
-    input   [13:0]dividend;
-    
-    reg     run;
-    
-    wire    dividend_less_than10;
-    assign  dividend_less_than10 = (remainder < 14'hA ) ? 1:0;
+    input           clk, rst;
+    input           load_quotient;
+    input           load_value;
+    input   [13:0]  value;
     
     
-    always @( posedge start ) begin
+    reg     [13:0]  dividend;
+    
+    assign remainder = dividend;
+    
+    wire    [13:0]  difference;
+    
+    assign {carry, difference} = dividend + 14'h3FF6;
+    
+    
+    always @( posedge clk or negedge rst ) begin
         
-        quotient <= 0;
-        remainder <= dividend;
-        run <= 1;
-        
-    end
-    
-    
-    always @( posedge clk ) begin
-        
-        if( run ) begin
+        if( ~rst ) begin
+            
+            quotient <= 0;
+            dividend <= 0;
+            
+        end
+        else if( load_value ) begin
+            
+            quotient <= 0;
+            dividend <= value;
+            
+        end
+        else if( load_quotient ) begin
+            
+            quotient <= 0;
+            dividend <= quotient;
+            
+        end
+        else begin
             
             quotient <= quotient + 1;
-            remainder <= remainder - 14'd10;
+            dividend <= difference;
             
         end
         
     end
     
-    always @( posedge dividend_less_than10  ) begin
-        
-        done <= 1;
-        run <= 0;
-        
-    end
 
 endmodule

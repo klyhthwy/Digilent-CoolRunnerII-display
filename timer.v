@@ -30,7 +30,7 @@ module timer #(parameter size = 24)( tmr_count, flag, clk, rst, tmr_period, tmr_
     reg     [size-1:0]tmr_load;
     reg     [size-1:0]tmr_cmp;
 
-    always@( posedge clk, negedge rst )
+    always@( posedge clk or negedge rst )
     begin
         if( rst == 0 )
         begin
