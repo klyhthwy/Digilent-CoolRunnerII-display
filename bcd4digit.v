@@ -20,9 +20,9 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 
-module bcd4digit( ready, A, B, C, D, clk, rst, value );
+module bcd4digit( done, A, B, C, D, clk, rst, value, start );
 
-    output          ready;
+    output          done;
     output  [3:0]   A;
     output  [3:0]   B;
     output  [3:0]   C;
@@ -31,8 +31,14 @@ module bcd4digit( ready, A, B, C, D, clk, rst, value );
     input   clk;
     input   rst;
     input   [13:0]  value;
+    input   start;
     
     
+    bcd4digit_control M1(load_quotient, load_value, divide,
+        clk, rst, start, done, carry);
+        
+    bcd4digit_data M2(A, B, C, D, done, carry,
+        clk, rst, load_quotient, load_value, divide, value);
     
 
 endmodule

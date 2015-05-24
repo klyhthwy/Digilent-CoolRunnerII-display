@@ -28,8 +28,10 @@ module bcd4digit_t;
 	reg clk;
 	reg rst;
 	reg [13:0] value;
+    reg start;
 
 	// Outputs
+    wire done;
 	wire [3:0] A;
 	wire [3:0] B;
 	wire [3:0] C;
@@ -37,28 +39,38 @@ module bcd4digit_t;
 
 	// Instantiate the Unit Under Test (UUT)
 	bcd4digit uut (
+        .done(done),
 		.A(A), 
 		.B(B), 
 		.C(C), 
 		.D(D), 
 		.clk(clk), 
 		.rst(rst), 
-		.value(value)
+		.value(value),
+        .start(start)
 	);
     
     always #50 clk = ~clk;
+    
+    always #100 begin
+        $display("A: %0d\nB: %0d\nC: %0d\nD: %0d",A,B,C,D);
+        $display("...");
+        $stop;
+    end
 
 	initial begin
 		// Initialize Inputs
 		clk = 1;
 		rst = 0;
 		value = 6031;
+        start = 0;
 
 		// Wait 100 ns for global reset to finish
 		#100;
         
 		// Add stimulus here
-        rst = 1;
+        rst = 1; start = 1; #100
+        start = 0;
 
 	end
       

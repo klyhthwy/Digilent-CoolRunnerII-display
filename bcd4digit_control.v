@@ -20,41 +20,61 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 
-module bcd4digit_control( ready, load_quotient, load_value, divide,
-                          clk, rst, done, carry, value );
+module bcd4digit_control( load_quotient, load_value, divide,
+                          clk, rst, start, done, carry );
 
-    parameter   STATE_IDLE = 0, STATE_1 = 1, STATE_2 = 2, STATE_3 = 3;
+    parameter   STATE_IDLE = 0, STATE_1 = 1, STATE_2 = 2;
     parameter   STATE_SIZE = 2;
-
-    output      ready;
+    
     output  reg load_quotient, load_value, divide;
 
-    input       clk, rst, done, carry;
+    input       clk, rst, start, done, carry;
     
     reg [STATE_SIZE-1:0]    state, next_state;
     
     
     always @( posedge clk or negedge rst ) begin
         
-        if( ~rst )
+        if( ~rst ) begin
             state <= STATE_IDLE;
+        end
         else            
             state <= next_state;
         
     end
     
     
-    always @( state, value, done, carry ) begin
+    always @( state, start, done, carry ) begin
         
         case( state )
             
-            STATE_IDLE: ;
+            STATE_IDLE: 
             
-            STATE_1:    ;
+                if( start ) begin
+                    load_value = 1;
+                    next_state = STATE_1;
+                end
+
+            STATE_1:    // Load
             
-            STATE_2:    ;
+                if( load_quotient || load_value ) begin
+                    load_quotient = 0;
+                    load_value = 0;
+                    divide = 1;
+                    next_state = STATE_2;
+                end
             
-            STATE_3:    ;
+            STATE_2:    // Divide
+            
+                if( done ) begin
+                    divide = 1;
+                    next_state = STATE_IDLE;
+                end
+                else if( carry ) begin
+                    load_quotient = 1;
+                    divide = 0;
+                    next_state = STATE_1;
+                end
             
         endcase
         
