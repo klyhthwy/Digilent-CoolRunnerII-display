@@ -20,12 +20,13 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 
-module bcd4digit_data( A, B, C, D, done, carry, 
+module bcd4digit_data( A, B, C, D, done, carry, full,
                        clk, rst, load_quotient, load_value, divide, value );
 
     output  [3:0]   A, B, C, D;
     output          done;
     output          carry;
+    output          full;
     
     input           clk, rst;
     input           load_quotient;
@@ -50,7 +51,8 @@ module bcd4digit_data( A, B, C, D, done, carry,
     wire    [13:0]  difference;
     
     assign {carry, difference} = dividend - 14'd10;
-    assign done = (carry && (quotient == 10'b0)) || ix[2];
+    assign done = carry && (quotient == 10'b0);
+    assign full = ix[2];
     
     
     always @( posedge clk or negedge rst ) begin

@@ -31,7 +31,7 @@ module bcd4digit_t;
     reg start;
     
     // Outputs
-    wire done;
+    wire ready;
     wire [3:0] A;
     wire [3:0] B;
     wire [3:0] C;
@@ -39,7 +39,7 @@ module bcd4digit_t;
     
     // Instantiate the Unit Under Test (UUT)
     bcd4digit uut (
-        .done(done),
+        .ready(ready),
         .A(A), 
         .B(B), 
         .C(C), 
@@ -54,10 +54,16 @@ module bcd4digit_t;
     
     always #100 begin
         $display("A: %1d B: %1d C: %1d D: %1d",A,B,C,D);
+        $display("ix:       %4d", uut.M2.ix);
         $display("quotient: %4d", uut.M2.quotient);
         $display("dividend: %4d", uut.M2.dividend);
         $display("carry:    %4d", uut.M2.carry);
         $display("done:     %4d", uut.M2.done);
+        $display("---Control---");
+        $display("state:         %4d", uut.M1.state);
+        $display("next_state:    %4d", uut.M1.state);
+        $display("divide:        %4d", uut.M1.divide);
+        $display("load_quotient: %4d", uut.M1.load_quotient);
         $stop;
     end
 
