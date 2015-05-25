@@ -67,7 +67,7 @@ module bcd4digit_control( load_quotient, load_value, divide,
             STATE_2:    // Divide
             
                 if( done ) begin
-                    divide = 1;
+                    divide = 0;
                     next_state = STATE_IDLE;
                 end
                 else if( carry ) begin
