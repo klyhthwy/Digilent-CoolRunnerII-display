@@ -43,10 +43,16 @@ module timer_t;
 	);
     
     always #50 clk = ~clk;
+    
+    always #100 begin
+        $display("tmr_count);
+        $display(flag);
+        $stop;
+    end
 
 	initial begin
 		// Initialize Inputs
-		clk = 0;
+		clk = 1;
 		rst = 0;
 		tmr_period = 24'h7;
         tmr_compare = 24'h4;
