@@ -45,7 +45,7 @@ module timer_t;
     always #50 clk = ~clk;
     
     always #100 begin
-        $display("tmr_count);
+        $display("tmr_count");
         $display(flag);
         $stop;
     end

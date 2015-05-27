@@ -21,14 +21,17 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 module display_driver( 
-    output  a_l, b_l, c_l, d_l, e_l, f_l, g_l, dp_l, dig1, dig2, dig3, dig4,
-    input   clk, rst, en
+    a_l, b_l, c_l, d_l, e_l, f_l, g_l, dp_l, dig1, dig2, dig3, dig4, led,
+    clk, rst, en
     );
+    
+    output  a_l, b_l, c_l, d_l, e_l, f_l, g_l, dp_l, dig1, dig2, dig3, dig4;
+    output  [3:0] led;
+    input   clk, rst, en;
 
     reg     dp = 0;
     wire    a, b, c, d, e, f, g;
     wire    d1, d2, d3, d4;
-    wire    [3:0] led;
     
     // Seven segment display is active low.
     not(a_l, a);
@@ -70,13 +73,12 @@ module display_driver(
     
     // 4 digit binary encoding of the desired value to display
     wire [13:0] value;
-    bcd4digit M5(A, B, C, D, clk, rst, value);
+    bcd4digit M5(rdy, A, B, C, D, clk, rst, value, tick);
     
     // Timers for generating desired value that increments every second
     wire incr;
-    wire nc2;
-    wire [22:0] nc3;
-    timer #(14) M6(value, nc2, incr, rst, 14'd9999, 14'd1);
-    timer #(23) M7(nc3, incr, clk, rst, 23'd7999999, 23'd4000000);
+    wire [22:0] nc2;
+    timer #(14) M6(value, tick, incr, rst, 14'd9999, 14'd1);
+    timer #(23) M7(nc2, incr, clk, rst, 23'd7999999, 23'd4000000);
 
 endmodule
