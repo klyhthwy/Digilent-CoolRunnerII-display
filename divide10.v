@@ -1,5 +1,24 @@
 `timescale 1ns / 1ps
 
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date:     12:37:19 05/29/2015 
+// Design Name: 
+// Module Name:     divide10 
+// Project Name: 
+// Target Devices: 
+// Tool versions: 
+// Description:
+//
+// Dependencies: 
+//
+// Revision: 
+// Revision 0.01 - File Created
+// Additional Comments: 
+//
+//////////////////////////////////////////////////////////////////////////////////
 
 module divide10( quotient, remainder, ready, clk, rst, start, value );
 
@@ -15,8 +34,10 @@ module divide10( quotient, remainder, ready, clk, rst, start, value );
     reg [13:0]  divisor;
     
     
-    assign ready = dividend < 14'b1010;
+    assign ready = dividend < 4'b1010;
     assign fit   = dividend >= divisor;
+    
+    assign remainder = dividend[3:0];
     
     
     always @( posedge clk or negedge rst or posedge start ) begin

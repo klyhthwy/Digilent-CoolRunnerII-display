@@ -1,5 +1,24 @@
 `timescale 1ns / 1ps
 
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date:     12:37:19 05/29/2015 
+// Design Name: 
+// Module Name:     divide10_t 
+// Project Name: 
+// Target Devices: 
+// Tool versions: 
+// Description:
+//
+// Dependencies: 
+//
+// Revision: 
+// Revision 0.01 - File Created
+// Additional Comments: 
+//
+//////////////////////////////////////////////////////////////////////////////////
 
 module divide10_t();
 
@@ -28,14 +47,14 @@ module divide10_t();
     always #50 
         clk = ~clk;
     
-    always #100 begin
-        $display("dividend: %14b", uut.dividend);
-        $display("divisor:  %14b", uut.divisor);
-        $display("quotient: %14b", quotient);
-        $display("ready:    %1b", ready);
-        $display("fit:      %1b", uut.fit);
-        $stop;
-    end
+//    always #100 begin
+//        $display("dividend: %14b", uut.dividend);
+//        $display("divisor:  %14b", uut.divisor);
+//        $display("quotient: %14b", quotient);
+//        $display("ready:    %1b", ready);
+//        $display("fit:      %1b", uut.fit);
+//        $stop;
+//    end
 
     initial begin
         // Initialize Inputs
@@ -48,7 +67,11 @@ module divide10_t();
         #100;
         
         // Add stimulus here
-        rst = 1; start = 1; #100
+        rst = 1;
+        start = 1; #100;
+        start = 0; #1100;
+        value = 0;
+        start = 1; #100;
         start = 0;
 
     end
