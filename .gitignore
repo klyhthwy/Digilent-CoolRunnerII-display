@@ -1,3 +1,6 @@
-a.out
-*.gise
-*.xise
+*
+!*/
+!*.v
+!*.ucf
+!*.cf
+!README.md
