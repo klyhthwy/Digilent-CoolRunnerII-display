@@ -42,10 +42,10 @@ module bcd4digit( ready, A, B, C, D, clk, rst, value, start );
     reg     [3:0]   digits [0:3];
     reg     [1:0]   dig_sel;
     reg             start_div;
+    reg     [13:0]  div_value;
     
     wire    [9:0]   quotient;
     wire    [3:0]   remainder;
-    wire    [13:0]  div_value;
     wire            div_ready;
     
     // Module ready
@@ -58,7 +58,7 @@ module bcd4digit( ready, A, B, C, D, clk, rst, value, start );
     assign D = digits[3];
     
     // Multiplexer for division value
-    assign div_value = ~state[1] ? value : {4'h0, quotient};
+//    assign div_value = ~state[1] ? value : {4'h0, quotient};
     
     // Division unit
     divide10 M1(quotient, remainder, div_ready, clk, rst, start_div, div_value);
@@ -67,7 +67,8 @@ module bcd4digit( ready, A, B, C, D, clk, rst, value, start );
     assign done = quotient < 10'hA;
     
     
-    always @( posedge clk or negedge rst or posedge start ) begin
+    always @( posedge clk or negedge rst ) begin
+    
     
         if( ~rst ) begin
             state <= S_IDLE;
@@ -77,8 +78,12 @@ module bcd4digit( ready, A, B, C, D, clk, rst, value, start );
             digits[3] <= 4'hF;
             dig_sel <= 0;
             start_div <= 0;
+            div_value <= 0;
         end
         else begin
+        
+            div_value <= ~state[1] ? value : {4'h0, quotient};
+        
             case( state )
             
                 S_IDLE:
@@ -107,6 +112,7 @@ module bcd4digit( ready, A, B, C, D, clk, rst, value, start );
                     if( div_ready ) begin
                         
                         digits[dig_sel] <= remainder;
+                        dig_sel <= dig_sel + 1;
                         
                         if( done ) begin
                             state <= S_IDLE;
