@@ -34,7 +34,7 @@ module divide10( quotient, remainder, ready, clk, rst, start, value );
     reg [13:0]  divisor;
     
     
-    assign ready = dividend < 4'b1010;
+    assign ready = divisor[0];
     assign fit   = dividend >= divisor;
     
     assign remainder = dividend[3:0];
