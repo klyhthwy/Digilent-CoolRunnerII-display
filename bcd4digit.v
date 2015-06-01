@@ -63,8 +63,11 @@ module bcd4digit( ready, A, B, C, D, clk, rst, value, start );
     // Division unit
     divide10 M1(quotient, remainder, div_ready, clk, rst, start_div, div_value);
     
+    // Done...
+    assign done = quotient < 10'hA;
     
-    always @( posedge clk or negedge rst ) begin
+    
+    always @( posedge clk or negedge rst or posedge start ) begin
     
         if( ~rst ) begin
             state <= S_IDLE;
@@ -103,6 +106,15 @@ module bcd4digit( ready, A, B, C, D, clk, rst, value, start );
                     
                     if( div_ready ) begin
                         
+                        digits[dig_sel] <= remainder;
+                        
+                        if( done ) begin
+                            state <= S_IDLE;
+                        end
+                        else begin
+                            state <= S_LOAD_Q;
+                            start_div <= 1;
+                        end
                     end
             
             endcase
