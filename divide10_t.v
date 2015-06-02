@@ -47,20 +47,24 @@ module divide10_t();
     always #50 
         clk = ~clk;
     
-//    always #100 begin
-//        $display("dividend: %14b", uut.dividend);
-//        $display("divisor:  %14b", uut.divisor);
-//        $display("quotient: %14b", quotient);
-//        $display("ready:    %1b", ready);
-//        $display("fit:      %1b", uut.fit);
-//        $stop;
-//    end
+    always #100 begin
+        $display("%14b %4d %14b %10b %3d   %1b   %1b     %1b", 
+            uut.dividend, uut.dividend, uut.divisor, quotient, quotient, uut.run, uut.fit, ready);
+    end
+    
+    always @( posedge ready ) begin
+        #200;
+        $finish;
+    end
 
     initial begin
+        
+        $display("\n           dividend        divisor       quotient run fit ready");
+        
         // Initialize Inputs
         clk = 1;
         rst = 0;
-        value = 4934;
+        value = 1024;
         start = 0;
 
         // Wait 100 ns for global reset to finish
@@ -70,9 +74,8 @@ module divide10_t();
         rst = 1;
         start = 1; #100;
         start = 0; #1100;
-        value = 0;
-        start = 1; #100;
-        start = 0;
 
     end
+    
+    
 endmodule

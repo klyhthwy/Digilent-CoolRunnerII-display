@@ -58,7 +58,7 @@ module bcd4digit( ready, A, B, C, D, clk, rst, value, start );
     assign D = digits[3];
     
     // Multiplexer for division value
-//    assign div_value = ~state[1] ? value : {4'h0, quotient};
+    assign div_value = ~state[1] ? value : {4'h0, quotient};
     
     // Division unit
     divide10 M1(quotient, remainder, div_ready, clk, rst, start_div, div_value);
