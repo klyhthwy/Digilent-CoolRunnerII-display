@@ -42,11 +42,11 @@ module bcd4digit( ready, A, B, C, D, clk, rst, value, start );
     reg     [3:0]   digits [0:3];
     reg     [1:0]   dig_sel;
     reg             start_div;
-    reg     [13:0]  div_value;
     
     wire    [9:0]   quotient;
     wire    [3:0]   remainder;
     wire            div_ready;
+    wire    [13:0]  div_value;
     
     // Module ready
     assign ready = state == S_IDLE;
@@ -64,7 +64,7 @@ module bcd4digit( ready, A, B, C, D, clk, rst, value, start );
     divide10 M1(quotient, remainder, div_ready, clk, rst, start_div, div_value);
     
     // Done...
-    assign done = quotient < 10'hA;
+    assign done = quotient == 10'h0 && div_ready;
     
     
     always @( posedge clk or negedge rst ) begin
@@ -78,11 +78,8 @@ module bcd4digit( ready, A, B, C, D, clk, rst, value, start );
             digits[3] <= 4'hF;
             dig_sel <= 0;
             start_div <= 0;
-            div_value <= 0;
         end
         else begin
-        
-            div_value <= ~state[1] ? value : {4'h0, quotient};
         
             case( state )
             
@@ -116,6 +113,7 @@ module bcd4digit( ready, A, B, C, D, clk, rst, value, start );
                         
                         if( done ) begin
                             state <= S_IDLE;
+                            dig_sel <= 0;
                         end
                         else begin
                             state <= S_LOAD_Q;

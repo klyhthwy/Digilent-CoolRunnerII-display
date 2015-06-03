@@ -53,24 +53,24 @@ module bcd4digit_t;
     always #50 
         clk = ~clk;
     
-    always #100 begin
-        $display("%14b %4d %14b %10b %3d   %1b   %1b     %1b", 
-            uut.dividend, uut.dividend, uut.divisor, quotient, quotient, uut.run, uut.fit, ready);
-    end
-    
-    always @( posedge ready ) begin
-        #200;
-        $finish;
-    end
+//    always #100 begin
+//        $display("%14b %4d %14b %10b %3d   %1b   %1b     %1b", 
+//            uut.dividend, uut.dividend, uut.divisor, quotient, quotient, uut.run, uut.fit, ready);
+//    end
+//    
+//    always @( posedge ready ) begin
+//        #200;
+//        $finish;
+//    end
 
     initial begin
         
-        $display("\n           dividend        divisor       quotient run fit ready");
+//        $display("\n           dividend        divisor       quotient run fit ready");
         
         // Initialize Inputs
         clk = 1;
         rst = 0;
-        value = 4934;
+        value = 0;
         start = 0;
 
         // Wait 100 ns for global reset to finish

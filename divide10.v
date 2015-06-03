@@ -40,7 +40,7 @@ module divide10( quotient, remainder, ready, clk, rst, start, value );
     assign remainder = dividend[3:0];
     
     
-    always @( posedge clk or negedge rst or posedge start ) begin
+    always @( posedge clk or negedge rst ) begin
         
         if( ~rst ) begin
             quotient <= 0;
