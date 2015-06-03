@@ -62,7 +62,7 @@ module display_driver_t;
 		.en(en)
 	);
     
-    always #50 clk = ~clk;
+    always #5 clk = ~clk;
 
 	initial begin
 		// Initialize Inputs
@@ -75,7 +75,7 @@ module display_driver_t;
         
 		// Add stimulus here
         rst = 1; #100;
-        en = 1; #4000;
+        en = 1; #200;
 
 	end
       
